@@ -1,0 +1,39 @@
+output "vpc_id" {
+  description = "ID of the VPC"
+  value       = module.vpc.vpc_id
+}
+
+output "vpc_cidr" {
+  description = "CIDR block of the VPC"
+  value       = module.vpc.vpc_cidr
+}
+
+output "availability_zones" {
+  description = "Availability Zones used by the VPC"
+  value       = module.vpc.availability_zones
+}
+
+output "public_subnet_ids" {
+  description = "IDs of the public subnets"
+  value       = module.vpc.public_subnet_ids
+}
+
+output "private_app_subnet_ids" {
+  description = "IDs of the private application subnets"
+  value       = module.vpc.private_app_subnet_ids
+}
+
+output "database_subnet_ids" {
+  description = "IDs of the database subnets"
+  value       = module.vpc.database_subnet_ids
+}
+
+output "internet_gateway_id" {
+  description = "ID of the Internet Gateway"
+  value       = module.vpc.internet_gateway_id
+}
+
+output "nat_gateway_ids" {
+  description = "IDs of the NAT Gateways"
+  value       = module.vpc.nat_gateway_ids
+}
