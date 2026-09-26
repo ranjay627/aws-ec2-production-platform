@@ -41,16 +41,51 @@ resource "aws_security_group" "alb" {
 }
 
 # ---------------------------------------------------------
-# EC2 Security Group
+# Next.js Security Group
 # ---------------------------------------------------------
 
-resource "aws_security_group" "ec2" {
-  name        = "${var.project_name}-${var.environment}-ec2-sg"
-  description = "Security group for private EC2 application instances"
+resource "aws_security_group" "nextjs_web" {
+  name        = "${var.project_name}-${var.environment}-nextjs-web-sg"
+  description = "Security group for private Next.js web instances"
   vpc_id      = var.vpc_id
 
   ingress {
-    description     = "Application traffic from the ALB"
+    description     = "Next.js traffic from the ALB"
+    from_port       = 3000
+    to_port         = 3000
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb.id]
+  }
+
+  egress {
+    description = "Allow outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.project_name}-${var.environment}-nextjs-web-sg"
+    Project     = var.project_name
+    Environment = var.environment
+    Application = "nextjs-web"
+    ManagedBy   = "Terraform"
+    Tier        = "private-app"
+  }
+}
+
+# ---------------------------------------------------------
+# Spring Boot API Security Group
+# ---------------------------------------------------------
+
+resource "aws_security_group" "spring_boot_api" {
+  name        = "${var.project_name}-${var.environment}-spring-boot-api-sg"
+  description = "Security group for private Spring Boot API instances"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description     = "Spring Boot API traffic from the ALB"
     from_port       = 8080
     to_port         = 8080
     protocol        = "tcp"
@@ -66,9 +101,10 @@ resource "aws_security_group" "ec2" {
   }
 
   tags = {
-    Name        = "${var.project_name}-${var.environment}-ec2-sg"
+    Name        = "${var.project_name}-${var.environment}-spring-boot-api-sg"
     Project     = var.project_name
     Environment = var.environment
+    Application = "spring-boot-api"
     ManagedBy   = "Terraform"
     Tier        = "private-app"
   }
@@ -84,11 +120,11 @@ resource "aws_security_group" "rds" {
   vpc_id      = var.vpc_id
 
   ingress {
-    description     = "PostgreSQL from the application EC2 instances"
+    description     = "PostgreSQL from the Spring Boot API"
     from_port       = 5432
     to_port         = 5432
     protocol        = "tcp"
-    security_groups = [aws_security_group.ec2.id]
+    security_groups = [aws_security_group.spring_boot_api.id]
   }
 
   egress {

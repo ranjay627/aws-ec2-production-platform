@@ -3,9 +3,14 @@ output "alb_security_group_id" {
   value       = aws_security_group.alb.id
 }
 
-output "ec2_security_group_id" {
-  description = "ID of the EC2 security group"
-  value       = aws_security_group.ec2.id
+output "nextjs_web_security_group_id" {
+  description = "ID of the Next.js web security group"
+  value       = aws_security_group.nextjs_web.id
+}
+
+output "spring_boot_api_security_group_id" {
+  description = "ID of the Spring Boot API security group"
+  value       = aws_security_group.spring_boot_api.id
 }
 
 output "rds_security_group_id" {
