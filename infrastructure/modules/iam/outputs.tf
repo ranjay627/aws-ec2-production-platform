@@ -1,14 +1,19 @@
-output "ec2_role_name" {
-  description = "Name of the EC2 IAM role"
-  value       = aws_iam_role.ec2.name
+output "spring_boot_api_role_name" {
+  description = "Name of the Spring Boot API IAM role"
+  value       = aws_iam_role.spring_boot_api.name
 }
 
-output "ec2_role_arn" {
-  description = "ARN of the EC2 IAM role"
-  value       = aws_iam_role.ec2.arn
+output "spring_boot_api_instance_profile_name" {
+  description = "Name of the Spring Boot API instance profile"
+  value       = aws_iam_instance_profile.spring_boot_api.name
 }
 
-output "ec2_instance_profile_name" {
-  description = "Name of the EC2 instance profile"
-  value       = aws_iam_instance_profile.ec2.name
+output "nextjs_web_role_name" {
+  description = "Name of the Next.js web IAM role"
+  value       = aws_iam_role.nextjs_web.name
+}
+
+output "nextjs_web_instance_profile_name" {
+  description = "Name of the Next.js web instance profile"
+  value       = aws_iam_instance_profile.nextjs_web.name
 }

@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "this" {
-  name                 = "${var.project_name}-${var.environment}-app"
+  name                 = "${var.project_name}-${var.environment}-${var.application_name}"
   image_tag_mutability = "IMMUTABLE"
 
   image_scanning_configuration {
@@ -11,9 +11,10 @@ resource "aws_ecr_repository" "this" {
   }
 
   tags = {
-    Name        = "${var.project_name}-${var.environment}-app"
+    Name        = "${var.project_name}-${var.environment}-${var.application_name}"
     Project     = var.project_name
     Environment = var.environment
+    Application = var.application_name
     ManagedBy   = "Terraform"
   }
 }

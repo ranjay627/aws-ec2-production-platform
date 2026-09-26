@@ -25,11 +25,23 @@ module "iam" {
 
   project_name = var.project_name
   environment  = var.environment
+
+  spring_boot_api_repository_arn = module.spring_boot_api_ecr.repository_arn
+  nextjs_web_repository_arn      = module.nextjs_web_ecr.repository_arn
 }
 
-module "ecr" {
+module "spring_boot_api_ecr" {
   source = "../../modules/ecr"
 
-  project_name = var.project_name
-  environment  = var.environment
+  project_name     = var.project_name
+  environment      = var.environment
+  application_name = "spring-boot-api"
+}
+
+module "nextjs_web_ecr" {
+  source = "../../modules/ecr"
+
+  project_name     = var.project_name
+  environment      = var.environment
+  application_name = "nextjs-web"
 }
