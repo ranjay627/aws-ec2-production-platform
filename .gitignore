@@ -6,6 +6,10 @@
 crash.log
 crash.*.log
 
+# Terraform plan files
+*.tfplan
+tfplan
+
 # Terraform variable files with local values
 *.tfvars
 !*.tfvars.example
@@ -23,4 +27,4 @@ override.tf.json
 
 # OS files
 .DS_Store
-Thumbs.db
+Thumbs.dbc
